@@ -16,7 +16,7 @@ Explicity describe what is not part of MVP
 
 ## List of stories needed to complete the MVP `aim for 8 stories`
 
-1. `Example story` Display baord
+1. `Example story` Display board
 
 As a player I need to be able to see the current board configuration so that I can understand my position and figure out my next move.
 
