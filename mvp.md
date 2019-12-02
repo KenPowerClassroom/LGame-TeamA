@@ -21,9 +21,10 @@ N1 will be used to represent neutral piece 1
 and N2 will be used to represent neutral piece 2.
 
 ## List the features of the MVP
-- feature1
-- feature2
-- ...
+- Board is displayed for Player to see where their pieces, and their opponent's pieces are. This is the same for the Neutral coins.
+- Player can choose their L piece position by entering a Letter and a Number, with the Letter being the Row, and the Number being the Column
+- The Opponent is completely AI controlled, and will only try to choose a spot
+- 
 
 ## Out Of Scope
 
