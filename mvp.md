@@ -27,7 +27,11 @@ and N2 will be used to represent neutral piece 2.
 
 ## Out Of Scope
 
-Explicity describe what is not part of MVP
+The MVP will not contain any graphics using SFML. It will only use the command line to display the game. It will also not have a main menu screen, help screen or close game button
+since the player will be able to close the command line. The game will however have a short line or two on how to move their piece, neutral pieces and when they've won/lost.
+The game will not have a multiplayer feature at this stage. It will not have any controller support. The game will not display the rules of the game as it will assume that you 
+already know how to play the game. The game will not include any audio at this stage and the only way that the player can input is to use the number buttons to input into
+the command line.
 
 
 ## List of stories needed to complete the MVP `aim for 8 stories`
