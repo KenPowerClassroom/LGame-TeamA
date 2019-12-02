@@ -24,3 +24,19 @@ Each player takes a turn moving their L piece. After making their move, they the
 During the player's turn their L-shape cannot be in the same space as the other player's L-shape or any space a neutral piece occupies. The player can move its coloured L-piece on an empty space and it can be rotated or flipped over. The gimmick of this game is that the L-shape must be in a different space from where it started. A legal move can contain previously occupied spaces of that player, as long as one new space is empty. You cannot move your piece somewhere outside of the board. To move the neutral piece, simply pick up the neutral piece then move it to an empty space anywhere on the board.
 
 ## Playing strategies
+### Strategy 1
+Blocking off a 3x3 grid in any corner of the board with your L-shape and your neutral piece. You can then manipulate the other neutral piece to decrease your opponent’s possible moves.
+
+### Strategy 2
+Dividing the grid in half. Control one of the halves and lock your opponent within the other half.
+
+### Strategic Principles
+- Always try to have your L-shape occupy a corner.
+- Try to make sure a neutral piece is adjacent to your L-shape.
+
+### Defensive Strategy
+If your L-shape occupies three of the four squares in the centre of the grid, you can play almost forever. You can then wait until your opponent makes a mistake and capitalize on it.
+
+Or your L-shape can occupy 2 of the four squares in the centre of the grid and no neutral pieces occupy any of the X's marked below:
+
+![alt text](https://cdn.discordapp.com/attachments/650345344890175488/651180874120822806/Screenshot_3.png "Picture of wanted positions for the neutral pieces")
