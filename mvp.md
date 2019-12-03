@@ -37,12 +37,26 @@ the command line.
 
 ## List of stories needed to complete the MVP `aim for 8 stories`
 
-1. `Example story` Display board
+Joshua Dunne
+1. Display board 
+- As a player, I need to see the board to play the game.
+2. Display neutral pieces
+- For both the player and AI to see where the neutral pieces is in the board.
 
-As a player I need to be able to see the current board configuration so that I can understand my position and figure out my next move.
+Allexis Alvarico
+3. Make Player
+- To create the necessary data for the player class i.e current position, previous position and etc.
+4. Move L-piece
+- To allow the L-piece to move within the grid and checks if its a valid move.
 
-2. Story-name
+Michal K.
+5. Move neutral
+- After the player move the L-piece, the player has a choice whether to move the neutral piece to an empty grid or not move it and pass the turn.
+6. Turn order
+- Once the player finish its turn, the AI will starts its turn and once the AI finish its turn, the player starts its turn and so on.
 
-As a user `usually player, but can be developer` I need to be able to `do something` so that I can `complete and objective`.
-
-
+Jack Malone
+7. Simple AI
+- The simple AI is similar to the player but cannot move neutral pieces.
+8. Win condition
+- Checks if the player has won or lost to the AI.
