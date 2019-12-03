@@ -19,9 +19,7 @@ The L game is a two-player game played on a board of 4×4 squares. Each player h
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/L_Game_start_position.svg/250px-L_Game_start_position.svg.png "Picture of Starting Board")
 
 ## Game rules
-Each player takes a turn moving their L piece. After making their move, they then have the option to move any of the two neutral pieces to an unoccupied space. The game is won if either player cannot move their L piece to a new position.
-
-During the player's turn their L-shape cannot be in the same space as the other player's L-shape or any space a neutral piece occupies. The player can move its coloured L-piece on an empty space and it can be rotated or flipped over. The gimmick of this game is that the L-shape must be in a different space from where it started. A legal move can contain previously occupied spaces of that player, as long as one new space is empty. You cannot move your piece somewhere outside of the board. To move the neutral piece, simply pick up the neutral piece then move it to an empty space anywhere on the board.
+On each turn, a player must move their L-shape to an empty square and must not overlap with the opponent’s L-shape or the neutral pieces. The L-shape can be rotated or flipped over but the L-shape must end in a different position from it started from, hence covering at least one empty square to make it a valid move. After moving the L-shape, the player has an option to move one of the neutral pieces to an empty square, if not the opponent turn begins. The objective of the game is to leave your opponent without a legal move for their L-shape.
 
 ## Playing strategies
 ### Strategy 1
