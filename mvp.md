@@ -39,20 +39,27 @@ the command line.
 
 
 
-1. Display board (Joshua Dunne)
+### 1. Display board (Joshua Dunne)
 - As a player, I need to see the board to play the game.
-2. Display neutral pieces (Joshua Dunne)
+
+### 2. Display neutral pieces (Joshua Dunne)
 - For both the player and AI to see where the neutral pieces are in the board.
-3. Make Player (Allexis Alvarico)
+
+### 3. Make Player (Allexis Alvarico)
 - To create the necessary data for the player class i.e. current position, previous position etc.
-4. Move L-piece (Allexis Alvarico)
+
+### 4. Move L-piece (Allexis Alvarico)
 - To allow the L-piece to move within the grid and checks if it’s a valid move.
-5. Move neutral (Michal K)
+
+### 5. Move neutral (Michal K)
 - After the player move the L-piece, the player has a choice whether to move one of the two neutral pieces to an empty grid or not move any neutral piece and pass the turn.
-6. Turn order (Michal K)
+
+### 6. Turn order (Michal K)
 - Once the player finishes its turn, the AI will start its turn and once the AI finish its turn, the player starts its turn and so on.
-7. Simple AI (Jack Malone)
+
+### 7. Simple AI (Jack Malone)
 - The simple AI is like the player but cannot move neutral pieces.
-8. Win condition (Jack Malone)
+
+### 8. Win condition (Jack Malone)
 - Checks if the player has won or lost to the AI.
 
