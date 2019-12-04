@@ -42,8 +42,8 @@ the command line.
 ### 1. Display board (Joshua Dunne)
 - As a player, I need to see the board to play the game.
 
-### 2. Display neutral pieces (Joshua Dunne)
-- For both the player and AI to see where the neutral pieces are in the board.
+### 2. Display playing pieces (Joshua Dunne)
+- Place and show Player, AI and Neutral pieces
 
 ### 3. Make Player (Allexis Alvarico)
 - To create the necessary data for the player class i.e. current position, previous position etc.
