@@ -2,6 +2,7 @@
 #define RENDERER_H
 
 #include <iostream>
+#include <windows.h>   // WinApi header
 #include "Board.h"
 
 struct Renderer
