@@ -26,6 +26,6 @@ void Renderer::drawBoard(Board t_board)
 		SetConsoleTextAttribute(hConsole, 15);
 		std::cout << t_board.m_board[index][0] << " " << t_board.m_board[index][1] << " " << t_board.m_board[index][2] << " " << t_board.m_board[index][3] << " |" << std::endl;
 	}
+	std::cout << "============" << std::endl;
 
-	//SetConsoleTextAttribute(hConsole, 15);
 }
