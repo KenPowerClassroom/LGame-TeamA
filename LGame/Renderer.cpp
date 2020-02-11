@@ -8,22 +8,19 @@ void Renderer::drawBoard(Board t_board)
 {
 	system("CLS");
 
-	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(hConsole, 15);
-
 	std::cout << "============" << std::endl;
 	std::cout << "|  ";
-	SetConsoleTextAttribute(hConsole, 14); // change text color to yellow
+	changeTextColor(14); // change text color to yellow
 	std::cout << "A B C D "; // output column letters
-	SetConsoleTextAttribute(hConsole, 15); // change text color to white
+	changeTextColor(15); // change text color to white
 	std::cout <<  "|" << std::endl;
 
 	for (int row = 0; row < 4; ++row)
 	{
 		std::cout << "|";
-		SetConsoleTextAttribute(hConsole, 14); // change text color to yellow
+		changeTextColor(14); // change text color to yellow
 		std::cout << row + 1 << " "; // output row numbers
-		SetConsoleTextAttribute(hConsole, 15); // change text color to white
+		changeTextColor(15); // change text color to white
 
 		for (int col = 0; col < 4; ++col)
 		{
@@ -37,11 +34,26 @@ void Renderer::drawBoard(Board t_board)
 				std::cout << t_board.getCharacter(row, col) << " ";
 			}
 
-			SetConsoleTextAttribute(hConsole, 15); // reset text color
+			changeTextColor(15); // reset text color
 		}
 		
 	}
 
 	std::cout << "============" << std::endl;
 
+}
+
+/// <summary>
+/// Change color of CMD Text
+/// Some useful colors to remember:
+/// 14 = Yellow Text
+/// 15 = White Text
+/// 159 = Blue Background, White Text
+/// 207 = Red Background, White Text
+/// </summary>
+/// <param name="t_color">Color of text to change</param>
+void Renderer::changeTextColor(int t_color)
+{
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(hConsole, t_color);
 }
