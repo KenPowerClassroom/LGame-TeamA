@@ -13,22 +13,35 @@ void Renderer::drawBoard(Board t_board)
 
 	std::cout << "============" << std::endl;
 	std::cout << "|  ";
-	SetConsoleTextAttribute(hConsole, 14);
-	std::cout << "A B C D ";
-	SetConsoleTextAttribute(hConsole, 15);
+	SetConsoleTextAttribute(hConsole, 14); // change text color to yellow
+	std::cout << "A B C D "; // output column letters
+	SetConsoleTextAttribute(hConsole, 15); // change text color to white
 	std::cout <<  "|" << std::endl;
 
-	for (int index = 0; index < 4; ++index)
+	for (int row = 0; row < 4; ++row)
 	{
 		std::cout << "|";
-		SetConsoleTextAttribute(hConsole, 14);
-		std::cout << index + 1 << " ";
-		SetConsoleTextAttribute(hConsole, 15);
-		std::cout << t_board.getCharacter(0, index) << " " 
-				  << t_board.getCharacter(1, index) << " " 
-				  << t_board.getCharacter(2, index) << " " 
-				  << t_board.getCharacter(3, index) << " |" << std::endl;
+		SetConsoleTextAttribute(hConsole, 14); // change text color to yellow
+		std::cout << row + 1 << " "; // output row numbers
+		SetConsoleTextAttribute(hConsole, 15); // change text color to white
+
+		for (int col = 0; col < 4; ++col)
+		{
+			if (col == 3)
+			{
+				std::cout << t_board.getCharacter(row, col) << " |";
+				std::cout << std::endl;
+			}
+			else
+			{
+				std::cout << t_board.getCharacter(row, col) << " ";
+			}
+
+			SetConsoleTextAttribute(hConsole, 15); // reset text color
+		}
+		
 	}
+
 	std::cout << "============" << std::endl;
 
 }

@@ -5,8 +5,10 @@
 #include <windows.h>   // WinApi header
 #include "Board.h"
 
-struct Renderer
+class Renderer
 {
+
+public:
 	static void drawBoard(Board t_board);
 };
 

@@ -11,8 +11,8 @@
 /// 
 /// ---------------------------------------------------------
 /// 
-/// Date(s): 22/01/19
-/// Time Taken: ?hrs
+/// Date(s): 22/01/2020, 29/01/2020, 05/02/2020, 12/02/2020
+/// Time Taken: 3hrs
 /// Estimated Time: 20hrs
 /// 
 /// Known bugs:
@@ -32,12 +32,11 @@ int main()
 	Game game;
 	game.run();
 
-
 	return 0;
 }
 
 
-
+//
 //#include <iostream>
 //#include <windows.h>   // WinApi header
 //

@@ -2,6 +2,7 @@
 
 void Game::run()
 {
+	// pre-emptively render the board before entering the game loop
 	Renderer::drawBoard(board);
 
 	while (true)
