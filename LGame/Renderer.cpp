@@ -24,7 +24,10 @@ void Renderer::drawBoard(Board t_board)
 		SetConsoleTextAttribute(hConsole, 14);
 		std::cout << index + 1 << " ";
 		SetConsoleTextAttribute(hConsole, 15);
-		std::cout << t_board.m_board[index][0] << " " << t_board.m_board[index][1] << " " << t_board.m_board[index][2] << " " << t_board.m_board[index][3] << " |" << std::endl;
+		std::cout << t_board.getCharacter(0, index) << " " 
+				  << t_board.getCharacter(1, index) << " " 
+				  << t_board.getCharacter(2, index) << " " 
+				  << t_board.getCharacter(3, index) << " |" << std::endl;
 	}
 	std::cout << "============" << std::endl;
 

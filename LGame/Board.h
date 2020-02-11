@@ -3,7 +3,7 @@
 
 #include <string.h>
 
-struct Board
+class Board
 {
 	char m_board[4][4]
 	{	{'-', '-', '-', '-'},
@@ -11,6 +11,9 @@ struct Board
 		{'-', '-', '-', '-'},
 		{'-', '-', '-', '-'}
 	};
+
+public:
+	const char getCharacter(int t_row, int t_col) const;
 };
 
 #endif
