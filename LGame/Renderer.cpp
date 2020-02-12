@@ -50,6 +50,7 @@ void Renderer::drawBoard(Board t_board)
 /// 15 = White Text
 /// 159 = Blue Background, White Text
 /// 207 = Red Background, White Text
+/// 240 = White Backgrund, Black Text
 /// </summary>
 /// <param name="t_color">Color of text to change</param>
 void Renderer::changeTextColor(int t_color)

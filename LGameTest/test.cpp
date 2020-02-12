@@ -5,11 +5,7 @@
 //  EXPECT_EQ(1, 1);
 //  EXPECT_TRUE(true);
 //}
-
-/// <summary>
-/// Expect board to be empty (for now)
-/// </summary>
-TEST(BOARDCONTENT, Board_Contents)
+TEST(BOARDCONTENT, Board_Contents_On_Construction_Empty)
 {
 	Board testBoard;
 
