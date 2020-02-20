@@ -2,6 +2,7 @@
 #include "..\LGame\Board.h"
 #include "..\LGame\Renderer.h"
 #include <iostream>
+#include <sstream>
 
 //TEST(TestCaseName, TestName) {
 //  EXPECT_EQ(1, 1);
@@ -73,14 +74,30 @@ TEST(BOARDCONTENT, Board_Contents_Initialize_Pieces)
 
 	lineTest = "";
 }
-
 TEST(BOARDCONTENT, Screen_Output_Test_Uninitialised)	
 {
 	Board board;
 
-	std::ostream& test{ std::cout };
+	std::ostringstream test;
 
 	Renderer::drawBoard(test, board);
+
+	EXPECT_EQ(test.str(), "============\n|  A B C D |\n|1 - - - - |\n|2 - - - - |\n|3 - - - - |\n|4 - - - - |\n============\n");
+
+	EXPECT_TRUE(true);
+}
+
+TEST(BOARDCONTENT, Screen_Output_Test_Initialised)
+{
+	Board board;
+
+	board.initializeBoard();
+
+	std::ostringstream test;
+
+	Renderer::drawBoard(test, board);
+
+	EXPECT_EQ(test.str(), "============\n|  A B C D |\n|1 - 1 1 - |\n|2 - 2 1 - |\n|3 - 2 1 - |\n|4 - 2 2 - |\n============\n");
 
 	EXPECT_TRUE(true);
 }

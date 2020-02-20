@@ -11,9 +11,7 @@ void Game::run()
 			break;
 		}
 
-		std::ostream& test{ std::cout };
-
-		Renderer::drawBoard(test, m_board);
+		Renderer::drawBoard(std::cout, m_board);
 
 		update();
 	}
