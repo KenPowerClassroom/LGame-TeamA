@@ -22,16 +22,26 @@ void Renderer::drawBoard(Board t_board)
 		std::cout << row + 1 << " "; // output row numbers
 		changeTextColor(15); // change text color to white
 
+
+
 		for (int col = 0; col < 4; ++col)
 		{
+			if ('(' == t_board.getCharacter(row, col) || ')' == t_board.getCharacter(row, col))
+			{
+				changeTextColor(240);
+			}
+
 			if (col == 3)
 			{
-				std::cout << t_board.getCharacter(row, col) << " |";
-				std::cout << std::endl;
+				std::cout << t_board.getCharacter(row, col);
+				changeTextColor(15);
+				std::cout << " |" << std::endl;
 			}
 			else
 			{
-				std::cout << t_board.getCharacter(row, col) << " ";
+				std::cout << t_board.getCharacter(row, col);
+				changeTextColor(15); // reset text color
+				std::cout << " ";
 			}
 
 			changeTextColor(15); // reset text color
