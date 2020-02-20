@@ -28,6 +28,9 @@ void Renderer::drawBoard(std::ostream& output, Board t_board)
 				changeTextColor(207);
 			else if (t_board.getCharacter(row, col) == '2')
 				changeTextColor(159);
+			if ('(' == t_board.getCharacter(row, col) || ')' == t_board.getCharacter(row, col))
+				changeTextColor(240);
+
 
 			output << t_board.getCharacter(row, col);
 			changeTextColor(15); // reset color before finishing up line
