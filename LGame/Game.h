@@ -10,7 +10,7 @@ class Game
 	// variables
 	bool quit{ false };
 
-	Board board;
+	Board m_board;
 
 
 public:

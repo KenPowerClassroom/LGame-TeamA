@@ -9,7 +9,7 @@ class Renderer
 {
 
 public:
-	static void drawBoard(Board t_board);
+	static void drawBoard(std::ostream& output, Board t_board);
 
 private:
 	static void changeTextColor(int t_color);

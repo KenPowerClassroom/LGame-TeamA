@@ -2,8 +2,7 @@
 
 void Game::run()
 {
-	// pre-emptively render the board before entering the game loop
-	Renderer::drawBoard(board);
+	m_board.initializeBoard();
 
 	while (true)
 	{
@@ -12,12 +11,9 @@ void Game::run()
 			break;
 		}
 
+		Renderer::drawBoard(std::cout, m_board);
 
 		update();
-
-		// ask renderer to draw the board
-		Renderer::drawBoard(board);
-		
 	}
 }
 
