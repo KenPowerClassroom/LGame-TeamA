@@ -67,7 +67,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>../LGame/debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Board.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Board.obj;Renderer.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

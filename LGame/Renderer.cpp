@@ -4,42 +4,47 @@
 /// Render the board in full
 /// </summary>
 /// <param name="t_board"></param>
-void Renderer::drawBoard(Board t_board)
+void Renderer::drawBoard(std::ostream& output, Board t_board)
 {
 	system("CLS");
 
-	std::cout << "============" << std::endl;
-	std::cout << "|  ";
+	output << "============" << std::endl;
+	output << "|  ";
 	changeTextColor(14); // change text color to yellow
-	std::cout << "A B C D "; // output column letters
+	output << "A B C D "; // output column letters
 	changeTextColor(15); // change text color to white
-	std::cout <<  "|" << std::endl;
+	output <<  "|" << std::endl;
 
 	for (int row = 0; row < 4; ++row)
 	{
-		std::cout << "|";
+		output << "|";
 		changeTextColor(14); // change text color to yellow
-		std::cout << row + 1 << " "; // output row numbers
+		output << row + 1 << " "; // output row numbers
 		changeTextColor(15); // change text color to white
 
 		for (int col = 0; col < 4; ++col)
 		{
+			if (t_board.getCharacter(row, col) == '1')
+				changeTextColor(207);
+			else if (t_board.getCharacter(row, col) == '2')
+				changeTextColor(159);
+
+			output << t_board.getCharacter(row, col);
+			changeTextColor(15); // reset color before finishing up line
+
 			if (col == 3)
 			{
-				std::cout << t_board.getCharacter(row, col) << " |";
-				std::cout << std::endl;
+				output << " |";
+				output << std::endl;
 			}
 			else
 			{
-				std::cout << t_board.getCharacter(row, col) << " ";
+				output << " ";
 			}
-
-			changeTextColor(15); // reset text color
-		}
-		
+		}	
 	}
 
-	std::cout << "============" << std::endl;
+	output << "============" << std::endl;
 
 }
 

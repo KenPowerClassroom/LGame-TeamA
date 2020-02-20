@@ -13,7 +13,9 @@ class Board
 	};
 
 public:
+	void initializeBoard();
 	const char getCharacter(int t_row, int t_col) const;
+	
 };
 
 #endif
