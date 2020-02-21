@@ -1,13 +1,15 @@
 #include "pch.h"
 #include "..\LGame\Board.h"
 #include "..\LGame\Renderer.h"
+
 #include <iostream>
 #include <sstream>
 
-//TEST(TestCaseName, TestName) {
-//  EXPECT_EQ(1, 1);
-//  EXPECT_TRUE(true);
-//}
+
+TEST(TestCaseName, TestName) {
+  EXPECT_EQ(1, 1);
+  EXPECT_TRUE(true);
+}
 TEST(BOARDCONTENT, Board_Contents_On_Construction_Empty)
 {
 	Board testBoard;
@@ -101,3 +103,4 @@ TEST(BOARDCONTENT, Screen_Output_Test_Initialised)
 
 	EXPECT_TRUE(true);
 }
+

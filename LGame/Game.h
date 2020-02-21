@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Renderer.h"
 #include "Board.h"
+#include "SimpleAI.h"
 
 class Game
 {
@@ -12,7 +13,7 @@ class Game
 
 	Board m_board;
 
-
+	SimpleAI m_ai;
 public:
 	void run();
 	void update();
