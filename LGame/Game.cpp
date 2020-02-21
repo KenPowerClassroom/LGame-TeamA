@@ -13,13 +13,24 @@ void Game::run()
 
 		Renderer::drawBoard(std::cout, m_board);
 
+		//Renderer::clearPiece(std::cout, m_board);
+
 		update();
 	}
 }
 
+
+
+
+
+
+
+
 void Game::update()
 {
 	// update board with information
+
+
 	int toQuit{ 0 };
 
 	std::cout << "Quit? 1 - Yes: ";

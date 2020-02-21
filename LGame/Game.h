@@ -16,7 +16,7 @@ class Game
 public:
 	void run();
 	void update();
-
+	unsigned int input{ 0 };
 };
 
 #endif

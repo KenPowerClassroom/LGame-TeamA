@@ -24,6 +24,10 @@ void Renderer::drawBoard(std::ostream& output, Board t_board)
 
 		for (int col = 0; col < 4; ++col)
 		{
+
+			if (t_board.getCharacter(row, col) == '1')
+				t_board.setCharacter(row, col, '-');
+				changeTextColor(15);
 			if (t_board.getCharacter(row, col) == '1')
 				changeTextColor(207);
 			else if (t_board.getCharacter(row, col) == '2')
@@ -44,10 +48,25 @@ void Renderer::drawBoard(std::ostream& output, Board t_board)
 			{
 				output << " ";
 			}
+
+
 		}	
 	}
 
 	output << "============" << std::endl;
+
+}
+
+void Renderer::clearPiece(std::ostream& output, Board t_board)
+{
+
+	for (int row = 0; row < 4; ++row)
+	{
+		for (int col = 0; col < 4; ++col)
+		{
+
+		}
+	}
 
 }
 
