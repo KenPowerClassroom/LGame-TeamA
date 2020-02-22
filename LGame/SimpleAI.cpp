@@ -1,9 +1,15 @@
 #include "SimpleAI.h"
 
+bool checkFree(int t_row, int t_col, const Board& t_board)
+{
+	return t_board.getCharacter(t_row, t_col) == '2' || t_board.getCharacter(t_row, t_col) == '-';
+}
+
 std::array<std::string, 4> SimpleAI::movePiece(const Board&  t_board)
 {
 	std::array<std::string, 4> oldLocations = { "","","","" };
-	std::array<std::string, 4> newLocations = { "","","","" };
+    m_newPositions = { "","","","" };
+
 	int j = 0;
 	int index = 0;
 	for (int i = 0; i < 4; i++)
@@ -22,59 +28,131 @@ std::array<std::string, 4> SimpleAI::movePiece(const Board&  t_board)
 		j = 0;
 	}
 
-	newLocations = oldLocations;
+	m_newPositions = oldLocations;
+	
 	j = 0;
-	index = 0;
-	for (int i = 0; i < 4; i++)
+	for (int row = 0; row < 4; row++)
 	{
 		for (; j < 4; j++)
 		{
-			newLocations = oldLocations;
-			if (t_board.getCharacter(i, j) == '-' ||
-				t_board.getCharacter(i,j) == '2')
+			if (t_board.getCharacter(row, j) == '2' || t_board.getCharacter(row, j) == '-')
 			{
-				newLocations.at(0) = std::to_string(i + 1) + std::to_string(j + 1);
-				if (i - 1 > 0)
+				if (checkFreeSpace(row, j, t_board, oldLocations))
 				{
-					if (t_board.getCharacter(i - 1, j) == '-' ||
-						t_board.getCharacter(i - 1, j) == '2')
+					break;
+				}
+			}
+		}
+	}
+	
+	return m_newPositions;
+}
+
+bool SimpleAI::checkFreeSpace(int t_row, int t_col, const Board& t_board, std::array<std::string,4> t_oldPositions)
+{
+	std::array<std::string, 4> locations = t_oldPositions;
+	locations.at(0) = std::to_string(t_row + 1) + std::to_string(t_col + 1);
+	if (t_row > 1)
+	{
+		if(t_board.getCharacter(t_row - 1, t_col) == '2'
+			|| t_board.getCharacter(t_row - 1, t_col) == '-')
+		{
+			if (t_row - 2 > 0)
+			{
+				if (t_board.getCharacter(t_row - 2, t_col) == '2'
+					|| t_board.getCharacter(t_row - 2, t_col) == '-')
+				{
+					locations.at(1) = std::to_string(t_row) + std::to_string(t_col + 1);
+					locations.at(2) = std::to_string(t_row - 1) + std::to_string(t_col + 1);
+					if (t_board.getCharacter(t_row - 2, t_col - 1) == '2'
+						|| t_board.getCharacter(t_row - 2, t_col - 1) == '-')
 					{
-						newLocations.at(1) = std::to_string(i) + std::to_string(j + 1);
-						if (i - 2 > 0)
-						{
-							if (t_board.getCharacter(i - 2, j) == '-' ||
-								t_board.getCharacter(i - 2, j) == '2')
-							{
-								newLocations.at(2) = std::to_string(i - 2) + std::to_string(j + 1);
-								if (j - 1 > 0)
-								{
-									if (t_board.getCharacter(i - 2, j - 1) == '-'
-										||
-										t_board.getCharacter(i - 2, j - 2) == '2')
-									{
-										newLocations.at(3) = std::to_string(i - 2) + std::to_string(j);
-										return newLocations;
-									}
-								
-								}
-								else if (j + 1 < 4)
-								{
-									if (t_board.getCharacter(i - 2, j + 1) == '-' ||
-										t_board.getCharacter(i - 2, j + 1) == '2')
-									{
-										newLocations.at(3) = std::to_string(i - 2) + std::to_string(j + 2);
-										return newLocations;
-									}									
-								}
-							}							
-							newLocations = oldLocations;
-					    }					
+						locations.at(3) = std::to_string(t_row - 1) + std::to_string(t_col);
+					}
+					else if (t_board.getCharacter(t_row - 2, t_col + 1) == '2' 
+						|| t_board.getCharacter(t_row - 2, t_col + 1) == '-')
+					{
+						locations.at(3) = std::to_string(t_row - 1) + std::to_string(t_col + 1);
 					}
 				}
 			}
 		}
-		newLocations = oldLocations;
 	}
-	
-	return newLocations;
+	if (t_row < 2)
+	{
+		if (t_board.getCharacter(t_row + 1, t_col) == '2'
+			|| t_board.getCharacter(t_row + 1, t_col) == '-')
+		{
+			if (t_row + 2 < 4)
+			{
+				if (t_board.getCharacter(t_row + 2, t_col) == '2' || t_board.getCharacter(t_row + 2, t_col) == '-')
+				{
+					locations.at(1) = std::to_string(t_row) + std::to_string(t_col + 1);
+					locations.at(2) = std::to_string(t_row - 1) + std::to_string(t_col + 1);
+
+					if (t_board.getCharacter(t_row + 2, t_col - 1) == '2' || t_board.getCharacter(t_row + 2, t_col - 1) == '-')
+					{
+						locations.at(3) = std::to_string(t_row - 1) + std::to_string(t_col);
+					}
+					else if (t_board.getCharacter(t_row + 2, t_col + 1) == '2'
+						|| t_board.getCharacter(t_row + 2, t_col + 1) == '-')
+					{
+						locations.at(3) = std::to_string(t_row - 1) + std::to_string(t_col + 1);
+					}
+				}
+			}
+		}
+	}
+	if (t_col > 1)
+	{
+		if (t_board.getCharacter(t_row, t_col - 1) == '2' || t_board.getCharacter(t_row, t_col - 1) == '-')
+		{
+			if (t_col - 2 > 0)
+			{
+				if (t_board.getCharacter(t_row, t_col - 2) == '2' || t_board.getCharacter(t_row, t_col - 2) == '-')
+				{
+					locations.at(1) = std::to_string(t_row + 1) + std::to_string(t_col);
+					locations.at(2) = std::to_string(t_row + 1) + std::to_string(t_col - 1);
+
+					if (t_board.getCharacter(t_row - 1, t_col - 2) == '2' || t_board.getCharacter(t_row - 1, t_col - 2) == '-')
+					{
+						locations.at(3) = std::to_string(t_row) + std::to_string(t_col - 1);
+					}
+					else if (t_board.getCharacter(t_row + 1, t_col - 2) == '2'
+						|| t_board.getCharacter(t_row + 1, t_col - 2) == '-')
+					{
+						locations.at(3) = std::to_string(t_row + 1) + std::to_string(t_col - 1);
+					}
+				}
+			}
+		}
+	}
+	if (t_col < 2)
+	{
+		if (t_board.getCharacter(t_row, t_col - 1) == '2' || t_board.getCharacter(t_row, t_col - 1) == '-')
+		{
+			if (t_col + 2 < 4)
+			{
+				if (t_board.getCharacter(t_row, t_col - 2) == '2' || t_board.getCharacter(t_row, t_col - 2) == '-')
+				{
+					locations.at(1) = std::to_string(t_row + 1) + std::to_string(t_col);
+					locations.at(2) = std::to_string(t_row + 1) + std::to_string(t_col - 1);
+				    if (t_board.getCharacter(t_row - 1, t_col - 2) == '2' || t_board.getCharacter(t_row - 1, t_col - 2) == '-')
+					{
+						locations.at(3) = std::to_string(t_row) + std::to_string(t_col - 1);
+					}
+					else if (t_board.getCharacter(t_row + 1, t_col - 2) == '2' 
+						|| t_board.getCharacter(t_row + 1, t_col - 2) == '-')
+					{
+						locations.at(3) = std::to_string(t_row + 1) + std::to_string(t_col - 1);
+					}
+				}
+			}
+		}
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		m_newPositions.at(i) = locations.at(i);
+	}
+	return locations == t_oldPositions;
 }
