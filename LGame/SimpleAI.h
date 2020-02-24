@@ -6,8 +6,14 @@
 class SimpleAI
 {
 private:
-	bool checkFreeSpace(int t_row, int t_col, const Board & t_board, std::array<std::string, 4> t_oldPositions);
 	std::array<std::string, 4> m_newPositions;
+	void setUpPositions(const Board& t_board);
+	bool checkRows(const Board& t_board, int t_row, int t_col);
+	bool checkAbove(const Board& t_board, int t_row, int t_col);
+	bool checkBelow(const Board& t_board, int t_row, int t_col);
+	bool checkColumns(const Board& t_board, int t_row, int t_col);
+	bool checkLeft(const Board& t_board, int t_row, int t_col);
+	bool checkRight(const Board& t_board, int t_row, int t_col);
 public:
 	std::array<std::string, 4> movePiece(const Board & t_board);
 };

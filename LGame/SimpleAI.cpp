@@ -5,10 +5,10 @@ bool checkFree(int t_row, int t_col, const Board& t_board)
 	return t_board.getCharacter(t_row, t_col) == '2' || t_board.getCharacter(t_row, t_col) == '-';
 }
 
-std::array<std::string, 4> SimpleAI::movePiece(const Board&  t_board)
+void SimpleAI::setUpPositions(const Board& t_board)
 {
 	std::array<std::string, 4> oldLocations = { "","","","" };
-    m_newPositions = { "","","","" };
+	m_newPositions = { "","","","" };
 
 	int j = 0;
 	int index = 0;
@@ -29,130 +29,179 @@ std::array<std::string, 4> SimpleAI::movePiece(const Board&  t_board)
 	}
 
 	m_newPositions = oldLocations;
-	
-	j = 0;
+}
+
+bool SimpleAI::checkRows(const Board& t_board, int t_row, int t_col)
+{
+	if (t_row > 1)
+	{		
+		return checkAbove(t_board, t_row, t_col);	
+	}
+	else if (t_row < 2)
+	{
+		return checkBelow(t_board, t_row, t_col);
+	}
+	return false;
+}
+
+bool SimpleAI::checkAbove(const Board& t_board, int t_row, int t_col)
+{
+	if (checkFree(t_row - 1, t_col, t_board) && checkFree(t_row - 2, t_col, t_board))
+	{
+		if (t_col > 0)
+		{
+			if (checkFree(t_row - 2, t_col - 1, t_board))
+			{
+				m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
+				m_newPositions[1] = std::to_string(t_row - 1) + std::to_string(t_col);
+				m_newPositions[2] = std::to_string(t_row - 2) + std::to_string(t_col);
+				m_newPositions[3] = std::to_string(t_row - 2) + std::to_string(t_col - 1);
+				return true;
+			}
+		}
+		else
+		{
+			if (checkFree(t_row - 2, t_col + 1, t_board))
+			{
+				m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
+				m_newPositions[1] = std::to_string(t_row - 1) + std::to_string(t_col);
+				m_newPositions[2] = std::to_string(t_row - 2) + std::to_string(t_col);
+				m_newPositions[3] = std::to_string(t_row - 2) + std::to_string(t_col + 1);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool SimpleAI::checkBelow(const Board& t_board, int t_row, int t_col)
+{
+	if (checkFree(t_row + 1, t_col, t_board) && checkFree(t_row + 2, t_col, t_board))
+	{
+		if (t_col > 0)
+		{
+			if (checkFree(t_row + 2, t_col - 1, t_board))
+			{
+				m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
+				m_newPositions[1] = std::to_string(t_row + 1) + std::to_string(t_col);
+				m_newPositions[2] = std::to_string(t_row + 2) + std::to_string(t_col);
+				m_newPositions[3] = std::to_string(t_row + 2) + std::to_string(t_col - 1);
+				return true;
+			}
+		}
+		else
+		{
+			if (checkFree(t_row + 2, t_col + 1, t_board))
+			{
+				m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
+				m_newPositions[1] = std::to_string(t_row + 1) + std::to_string(t_col);
+				m_newPositions[2] = std::to_string(t_row + 2) + std::to_string(t_col);
+				m_newPositions[3] = std::to_string(t_row + 2) + std::to_string(t_col + 1);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool SimpleAI::checkColumns(const Board& t_board, int t_row, int t_col)
+{
+	if (t_col > 1)
+	{
+		checkLeft(t_board, t_row, t_col);
+	}
+	else if (t_col < 2)
+	{
+		checkRight(t_board, t_row, t_col);
+	}
+	return false;
+}
+
+bool SimpleAI::checkLeft(const Board& t_board, int t_row, int t_col)
+{
+	if (checkFree(t_row, t_col - 1, t_board) && checkFree(t_row, t_col - 2, t_board))
+	{
+		if (t_row > 0)
+		{
+			if (checkFree(t_row, t_col - 1, t_board))
+			{
+				m_newPositions[0] = std::to_string(t_row) +
+					std::to_string(t_col);
+				m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col - 1);
+				m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col - 2);
+				m_newPositions[3] = std::to_string(t_row - 1) + std::to_string(t_col - 2);
+				return true;
+			}
+		}
+		else
+		{
+			if (checkFree(t_row + 1, t_col - 2, t_board))
+			{
+				m_newPositions[0] = std::to_string(t_row) +
+					std::to_string(t_col);
+				m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col - 1);
+				m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col - 2);
+				m_newPositions[3] = std::to_string(t_row + 1) + std::to_string(t_col - 2);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+bool SimpleAI::checkRight(const Board& t_board, int t_row, int t_col)
+{
+	if (checkFree(t_row, t_col + 1, t_board) && checkFree(t_row, t_col + 2, t_board))
+	{
+		if (t_row > 0)
+		{
+			if (checkFree(t_row - 1, t_col + 2, t_board))
+			{
+				m_newPositions[0] = std::to_string(t_row) +
+					std::to_string(t_col);
+				m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col + 1);
+				m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col + 2);
+				m_newPositions[3] = std::to_string(t_row - 1) + std::to_string(t_col + 2);
+				return true;
+			}
+		}
+		else
+		{
+			if (checkFree(t_row + 1, t_col + 2, t_board))
+			{
+				m_newPositions[0] = std::to_string(t_row) +
+					std::to_string(t_col);
+				m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col + 1);
+				m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col + 2);
+				m_newPositions[3] = std::to_string(t_row + 1) + std::to_string(t_col + 2);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+std::array<std::string, 4> SimpleAI::movePiece(const Board & t_board)
+{
+	setUpPositions(t_board);
+
 	for (int row = 0; row < 4; row++)
 	{
-		for (; j < 4; j++)
+		for (int column = 0; column < 4; column++)
 		{
-			if (t_board.getCharacter(row, j) == '2' || t_board.getCharacter(row, j) == '-')
+			if (checkFree(row , column, t_board))
 			{
-				if (checkFreeSpace(row, j, t_board, oldLocations))
+				if (checkRows(t_board, row, column))
 				{
 					break;
 				}
-			}
-		}
-	}
-	
-	return m_newPositions;
-}
 
-bool SimpleAI::checkFreeSpace(int t_row, int t_col, const Board& t_board, std::array<std::string,4> t_oldPositions)
-{
-	std::array<std::string, 4> locations = t_oldPositions;
-	locations.at(0) = std::to_string(t_row + 1) + std::to_string(t_col + 1);
-	if (t_row > 1)
-	{
-		if(t_board.getCharacter(t_row - 1, t_col) == '2'
-			|| t_board.getCharacter(t_row - 1, t_col) == '-')
-		{
-			if (t_row - 2 > 0)
-			{
-				if (t_board.getCharacter(t_row - 2, t_col) == '2'
-					|| t_board.getCharacter(t_row - 2, t_col) == '-')
+				if (checkColumns(t_board, row, column))
 				{
-					locations.at(1) = std::to_string(t_row) + std::to_string(t_col + 1);
-					locations.at(2) = std::to_string(t_row - 1) + std::to_string(t_col + 1);
-					if (t_board.getCharacter(t_row - 2, t_col - 1) == '2'
-						|| t_board.getCharacter(t_row - 2, t_col - 1) == '-')
-					{
-						locations.at(3) = std::to_string(t_row - 1) + std::to_string(t_col);
-					}
-					else if (t_board.getCharacter(t_row - 2, t_col + 1) == '2' 
-						|| t_board.getCharacter(t_row - 2, t_col + 1) == '-')
-					{
-						locations.at(3) = std::to_string(t_row - 1) + std::to_string(t_col + 1);
-					}
-				}
+					break;
+				}	
 			}
 		}
+		return m_newPositions;
 	}
-	if (t_row < 2)
-	{
-		if (t_board.getCharacter(t_row + 1, t_col) == '2'
-			|| t_board.getCharacter(t_row + 1, t_col) == '-')
-		{
-			if (t_row + 2 < 4)
-			{
-				if (t_board.getCharacter(t_row + 2, t_col) == '2' || t_board.getCharacter(t_row + 2, t_col) == '-')
-				{
-					locations.at(1) = std::to_string(t_row) + std::to_string(t_col + 1);
-					locations.at(2) = std::to_string(t_row - 1) + std::to_string(t_col + 1);
-
-					if (t_board.getCharacter(t_row + 2, t_col - 1) == '2' || t_board.getCharacter(t_row + 2, t_col - 1) == '-')
-					{
-						locations.at(3) = std::to_string(t_row - 1) + std::to_string(t_col);
-					}
-					else if (t_board.getCharacter(t_row + 2, t_col + 1) == '2'
-						|| t_board.getCharacter(t_row + 2, t_col + 1) == '-')
-					{
-						locations.at(3) = std::to_string(t_row - 1) + std::to_string(t_col + 1);
-					}
-				}
-			}
-		}
-	}
-	if (t_col > 1)
-	{
-		if (t_board.getCharacter(t_row, t_col - 1) == '2' || t_board.getCharacter(t_row, t_col - 1) == '-')
-		{
-			if (t_col - 2 > 0)
-			{
-				if (t_board.getCharacter(t_row, t_col - 2) == '2' || t_board.getCharacter(t_row, t_col - 2) == '-')
-				{
-					locations.at(1) = std::to_string(t_row + 1) + std::to_string(t_col);
-					locations.at(2) = std::to_string(t_row + 1) + std::to_string(t_col - 1);
-
-					if (t_board.getCharacter(t_row - 1, t_col - 2) == '2' || t_board.getCharacter(t_row - 1, t_col - 2) == '-')
-					{
-						locations.at(3) = std::to_string(t_row) + std::to_string(t_col - 1);
-					}
-					else if (t_board.getCharacter(t_row + 1, t_col - 2) == '2'
-						|| t_board.getCharacter(t_row + 1, t_col - 2) == '-')
-					{
-						locations.at(3) = std::to_string(t_row + 1) + std::to_string(t_col - 1);
-					}
-				}
-			}
-		}
-	}
-	if (t_col < 2)
-	{
-		if (t_board.getCharacter(t_row, t_col - 1) == '2' || t_board.getCharacter(t_row, t_col - 1) == '-')
-		{
-			if (t_col + 2 < 4)
-			{
-				if (t_board.getCharacter(t_row, t_col - 2) == '2' || t_board.getCharacter(t_row, t_col - 2) == '-')
-				{
-					locations.at(1) = std::to_string(t_row + 1) + std::to_string(t_col);
-					locations.at(2) = std::to_string(t_row + 1) + std::to_string(t_col - 1);
-				    if (t_board.getCharacter(t_row - 1, t_col - 2) == '2' || t_board.getCharacter(t_row - 1, t_col - 2) == '-')
-					{
-						locations.at(3) = std::to_string(t_row) + std::to_string(t_col - 1);
-					}
-					else if (t_board.getCharacter(t_row + 1, t_col - 2) == '2' 
-						|| t_board.getCharacter(t_row + 1, t_col - 2) == '-')
-					{
-						locations.at(3) = std::to_string(t_row + 1) + std::to_string(t_col - 1);
-					}
-				}
-			}
-		}
-	}
-	for (int i = 0; i < 4; i++)
-	{
-		m_newPositions.at(i) = locations.at(i);
-	}
-	return locations == t_oldPositions;
 }
