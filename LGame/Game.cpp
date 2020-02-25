@@ -28,34 +28,36 @@ void Game::update()
 	{
 
 		int row{ -1 };
-		int pRow{ -1 }; // previous row
 		char col{ -1 };
-		char pCol{ -1 }; // prevoius col
+		//bool inside{ true };
 
-		while ((row < 0 || row > 5) || (col < 'A' || col > 'D'))
+		bool invalidMovement = true;
+		while (invalidMovement)
 		{
+			//Get input 
 			std::cout << "Row: ";
 			std::cin >> row;
 
 			std::cout << "Col: ";
 			std::cin >> col;
 
-			pRow = row;
-			pCol = col;
+			//Check for validation
+			invalidMovement = false;
+
+			if (row < 0 || row > 5)
+			{
+				invalidMovement = true;
+			}
+			if (col < 'A' || col > 'D')
+			{
+				invalidMovement = true;
+			}
+			char test = m_board.getCharacter(row - 1, col - 65);
+			if ((test == '(') || (test == ')') || (test == '2'))
+			{
+				invalidMovement = true;
+			}
 		}
-	
-
-		if (m_board.getCharacter(pRow, pCol - 65) != '(')
-		{
-			
-			std::cout << "Re-enter Row, Col\n";
-			std::cout << "Row: ";
-			std::cin >> row;
-
-			std::cout << "Col: ";
-			std::cin >> col;
-
-		}	
 
 		col = col - 65;
 		row--;
