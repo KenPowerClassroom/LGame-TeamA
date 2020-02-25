@@ -11,12 +11,12 @@ class Game
 	bool quit{ false };
 
 	Board m_board;
-	int row{ -1 };
-	char col{ -1 };
+
 
 public:
 	void run();
 	void update();
+	void pieceClear();
 };
 
 #endif

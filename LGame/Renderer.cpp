@@ -30,6 +30,9 @@ void Renderer::drawBoard(std::ostream& output, Board t_board)
 				changeTextColor(159);
 			if ('(' == t_board.getCharacter(row, col) || ')' == t_board.getCharacter(row, col))
 				changeTextColor(240);
+			if ('-' == t_board.getCharacter(row, col))
+				changeTextColor(15);
+
 
 
 			output << t_board.getCharacter(row, col);
