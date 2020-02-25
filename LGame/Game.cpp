@@ -44,10 +44,13 @@ void Game::movePiece()
 	pieceClear();
 
 	int help{ 0 };
+	if (errorPlacement)
+	{
+		std::cout << "Invalid placement\n";
+	}
 
 	for (int i = 0; i < 4; i++)
 	{
-
 		int row{ -1 };
 		char col{ -1 };
 		bool invalidMovement = true;
@@ -95,10 +98,12 @@ void Game::movePiece()
 		if (help < 3)
 		{
 			vaildPlay = false;
+			errorPlacement = false;
 		}
 		else
 		{		
 			vaildPlay = true;
+			errorPlacement = true;
 		}
 	}
 	

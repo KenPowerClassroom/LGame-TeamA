@@ -10,7 +10,7 @@ class Game
 	// variables
 	bool quit{ false };
 	bool vaildPlay{ true };
-	bool canPlace{ true };
+	bool errorPlacement{ false };
 	Board m_board;
 	int pRow[4]; // previous row
 	char pCol[4]; // previous col
