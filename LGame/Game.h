@@ -24,6 +24,7 @@ public:
 	void run();
 	void update();
 	void switchTurn();
+	TurnOrder getTurnOrder() { return m_currentTurn; }
 
 };
 

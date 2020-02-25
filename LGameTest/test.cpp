@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "..\LGame\Board.h"
 #include "..\LGame\Renderer.h"
+#include "..\\LGame\Game.h"
 #include <iostream>
 #include <sstream>
 
@@ -98,6 +99,26 @@ TEST(BOARDCONTENT, Screen_Output_Test_Initialised)
 	Renderer::drawBoard(test, board);
 
 	EXPECT_EQ(test.str(), "============\n|  A B C D |\n|1 - 1 1 - |\n|2 - 2 1 - |\n|3 - 2 1 - |\n|4 - 2 2 - |\n============\n");
+
+	EXPECT_TRUE(true);
+}
+
+TEST(TURNORDER, Turn_Order_Test_Players_Turn)
+{
+	Game testGame;
+
+	ASSERT_EQ(TurnOrder::PLAYER_TURN, testGame.getTurnOrder());
+
+	EXPECT_TRUE(true);
+}
+
+TEST(TURNORDER, Turn_Order_Test_AIs_Turn)
+{
+	Game testGame;
+
+	testGame.switchTurn();
+
+	ASSERT_EQ(TurnOrder::AI_TURN, testGame.getTurnOrder());
 
 	EXPECT_TRUE(true);
 }
