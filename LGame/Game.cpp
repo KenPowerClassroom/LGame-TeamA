@@ -64,6 +64,12 @@ void Game::movePiece()
 			std::cout << "Col: ";
 			std::cin >> col;
 
+			if (col > 68 || col < 100)
+			{
+				col = col - 32;
+			}
+
+
 			//Check for validation
 			invalidMovement = false;
 
@@ -71,10 +77,7 @@ void Game::movePiece()
 			{
 				invalidMovement = true;
 			}
-			if (col < 'A' || col > 'D')
-			{
-				invalidMovement = true;
-			}
+
 			char test = m_board.getCharacter(row - 1, col - 65);
 			if ((test == '(') || (test == ')') || (test == '2') || test == '1')
 			{
@@ -90,9 +93,7 @@ void Game::movePiece()
 			}
 		}
 
-		col = col - 65;
-		row--;
-		m_board.setCharacter(row, (int)col, '1');
+		m_board.setCharacter(row - 1, (int)col - 65, '1');
 		Renderer::drawBoard(std::cout, m_board);
 
 		if (help < 3)
