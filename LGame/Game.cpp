@@ -25,6 +25,9 @@ void Game::update()
 
 	if (gameOn)
 	{
+		std::array<std::string, 4> location = m_ai.movePiece(m_board);
+		m_board.moveLPiece(location, '2');
+
 		movePiece();
 	}
 	else

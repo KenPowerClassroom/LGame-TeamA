@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "Board.h"
 #include <vector>
+#include "SimpleAI.h"
 
 class Game
 {
@@ -18,6 +19,7 @@ class Game
 	char pCol[4]; // previous col
 
 
+	SimpleAI m_ai;
 
 public:
 	void run();
