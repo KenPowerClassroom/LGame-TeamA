@@ -10,8 +10,9 @@ class Game
 {
 	// variables
 	bool quit{ false };
-	bool vaildPlay{ true };
+	bool gameOn{ true };
 	bool errorPlacement{ false };
+	bool validLPiece = true;
 	Board m_board;
 	int pRow[4]; // previous row
 	char pCol[4]; // previous col
@@ -24,7 +25,7 @@ public:
 	void update();
 	void pieceClear();
 	void movePiece();
-	bool checkVaildMove(int row, char col);
+	bool checkVaildMove(std::vector<int> row1, std::vector<int> col1);
 };
 
 #endif

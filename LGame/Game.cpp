@@ -13,7 +13,6 @@ void Game::run()
 		}
 
 		Renderer::drawBoard(std::cout, m_board);
-
 		update();
 	}
 }
@@ -24,9 +23,11 @@ void Game::update()
 
 	int toQuit{ 0 };
 
-	movePiece();
-
-	if (!vaildPlay)
+	if (gameOn)
+	{
+		movePiece();
+	}
+	else
 	{
 		std::cout << "Quit? 1 - Yes: ";
 		std::cin >> toQuit;
@@ -34,6 +35,7 @@ void Game::update()
 		{
 			quit = true;
 		}
+
 	}
 }
 
@@ -41,14 +43,12 @@ void Game::update()
 
 void Game::movePiece()
 {
-	pieceClear();
-
 	int error{ 0 };
 
-	if (errorPlacement)
-	{
-		std::cout << "Invalid placement\n";
-	}
+	pieceClear();
+
+	std::vector<int> row1;
+	std::vector<int> col1;
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -68,6 +68,7 @@ void Game::movePiece()
 			//Check for validation
 			invalidMovement = false;
 
+			//checks left and right
 			if (row < 0 || row > 5)
 			{
 				invalidMovement = true;
@@ -84,6 +85,9 @@ void Game::movePiece()
 				std::cout << "Invalid move piece is already there\n";
 				invalidMovement = true;
 			}
+			//check for L Piece good shape 
+			row1.push_back(row - 1);
+			col1.push_back((int)col - 65);
 		}
 
 		//checks if the previous l-piece placement is not the same
@@ -95,43 +99,42 @@ void Game::movePiece()
 			}
 		}
 
+		// just to display the error text
+		if (error > 3)
+		{
+			gameOn = false;
+			errorPlacement = false;
+		}
+		else
+		{
+			errorPlacement = true;
+		}
+
+
+
+
+
+		gameOn = checkVaildMove(row1, col1);
+
 		m_board.setCharacter(row - 1, (int)col - 65, '1');
 		Renderer::drawBoard(std::cout, m_board);
 
-
-		// just to display the error text
-		if (error < 3)
-		{
-			vaildPlay = false;
-			errorPlacement = false;
-		}
-
-		if (checkVaildMove(row, col))
-		{
-			 vaildPlay = true;
-		}
-
-
 	}
+
 
 }
 
-bool Game::checkVaildMove(int row, char col)
+bool Game::checkVaildMove(std::vector<int> row1, std::vector<int> col1)
 {
-	std::vector<int> row1;
-	std::vector<int> col1;
-
 	//check for L Piece good shape 
-	row1.push_back(row - 1);
-	col1.push_back((int)col - 65);
-	bool validLPiece = true;
+
 	int changingInDirection = 0;
 	if (row1.size() == 4)
 	{
-		for (unsigned int i = 2; row1.size(); i++)
+		for (unsigned int i = 2; i  < row1.size(); i++)
 		{
-			bool horizontalLine = (row1.at(i - 2) == row1.at(i) && row1.at(i) == row1.at(i - 1)); // checks if the 3 input is horizonral
-			bool verticalLine = (col1.at(i - 2) == col1.at(i) && col1.at(i) == col1.at(i - 1));// checks if the 3 input is horizonral
+			bool horizontalLine = (row1.at(i - 2) == row1.at(i) && row1.at(i) == row1.at(i - 1));
+			bool verticalLine = (col1.at(i - 2) == col1.at(i) && col1.at(i) == col1.at(i - 1));
 			if (!(horizontalLine || verticalLine))
 			{
 				changingInDirection++;
@@ -139,6 +142,7 @@ bool Game::checkVaildMove(int row, char col)
 		}
 		validLPiece = changingInDirection == 1;
 	}
+
 	return validLPiece;
 }
 
