@@ -5,6 +5,9 @@
 #include "Renderer.h"
 #include "Board.h"
 
+/// <summary>
+/// enum class used for checking who's turn it is
+/// </summary>
 enum class TurnOrder
 {
 	PLAYER_TURN,

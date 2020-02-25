@@ -13,7 +13,7 @@ void Game::run()
 
 		
 		Renderer::drawBoard(std::cout, m_board);
-		std::cout << m_turn << std::endl << std::endl;
+		std::cout << m_turn << std::endl << std::endl; // display who's turn it is
 
 		update();
 	}
@@ -46,6 +46,9 @@ void Game::update()
 	}
 }
 
+/// <summary>
+/// function that changes the turn and updates the turn message accordingly
+/// </summary>
 void Game::switchTurn()
 {
 	if (m_currentTurn == TurnOrder::PLAYER_TURN)
