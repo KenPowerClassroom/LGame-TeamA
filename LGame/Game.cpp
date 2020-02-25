@@ -13,6 +13,8 @@ void Game::run()
 		}
 
 		Renderer::drawBoard(std::cout, m_board);
+		std::cout << m_turn << std::endl << std::endl; // display who's turn it is
+
 		update();
 	}
 }
@@ -25,10 +27,25 @@ void Game::update()
 
 	if (gameOn)
 	{
-		std::array<std::string, 4> location = m_ai.movePiece(m_board);
-		m_board.moveLPiece(location, '2');
+		// allow player to move L-Piece and a neutral piece
+		if (m_currentTurn == TurnOrder::PLAYER_TURN)
+		{
+			/// <summary>
+			/// had to temporarily comment this out, otherwise the program wouldn't run
+			/// </summary>
+			//std::array<std::string, 4> location = m_ai.movePiece(m_board);
+			//m_board.moveLPiece(location, '2');
 
-		movePiece();
+			movePiece();
+
+			switchTurn();
+		}
+
+		// A.I does it's move with the L-Piece
+		else if (m_currentTurn == TurnOrder::AI_TURN)
+		{
+			switchTurn();
+		}
 	}
 	else
 	{
@@ -121,7 +138,7 @@ void Game::movePiece()
 
 		m_board.setCharacter(row - 1, (int)col - 65, '1');
 		Renderer::drawBoard(std::cout, m_board);
-
+		std::cout << m_turn << std::endl << std::endl; // display who's turn it is
 	}
 
 
@@ -149,6 +166,24 @@ bool Game::checkVaildMove(std::vector<int> row1, std::vector<int> col1)
 	return validLPiece;
 }
 
+/// <summary>
+/// function that changes the turn and updates the turn message accordingly
+/// </summary>
+void Game::switchTurn()
+{
+	if (m_currentTurn == TurnOrder::PLAYER_TURN)
+	{
+		m_currentTurn = TurnOrder::AI_TURN;
+		m_turn = "AI's Turn";
+	}
+
+	else
+	{
+		m_currentTurn = TurnOrder::PLAYER_TURN;
+		m_turn = "Player's Turn";
+	}
+}
+
 void Game::pieceClear()
 {
 	int index = 0;
@@ -164,6 +199,7 @@ void Game::pieceClear()
 				m_board.setCharacter(row, col, '-');
 				index++;
 				Renderer::drawBoard(std::cout, m_board);
+				std::cout << m_turn << std::endl << std::endl; // display who's turn it is
 			}
 		}
 	}
