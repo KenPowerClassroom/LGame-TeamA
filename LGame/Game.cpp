@@ -26,7 +26,8 @@ void Game::update()
 	std::cout << "Quit? 1 - Yes: ";
 	std::cin >> toQuit;
 
-	m_ai.movePiece(m_board);
+	std::array<std::string,4> location = m_ai.movePiece(m_board);
+	m_board.moveLPiece(location, '2');
 
 	if (toQuit == 1)
 	{
