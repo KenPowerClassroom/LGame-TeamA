@@ -19,7 +19,6 @@ class Game
 
 
 
-
 public:
 	void run();
 	void update();

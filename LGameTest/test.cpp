@@ -1,5 +1,8 @@
 #include "pch.h"
-#include "Board.h"
+#include "..\LGame\Board.h"
+#include "..\LGame\Renderer.h"
+#include <iostream>
+#include <sstream>
 
 //TEST(TestCaseName, TestName) {
 //  EXPECT_EQ(1, 1);
@@ -17,5 +20,84 @@ TEST(BOARDCONTENT, Board_Contents_On_Construction_Empty)
 		}
 	}
 	
+	EXPECT_TRUE(true);
+}
+
+TEST(BOARDCONTENT, Board_Contents_Initialize_Pieces)
+{
+	Board testBoard;
+	testBoard.initializeBoard();
+
+	std::string lineTest;
+
+	for (size_t col = 0; col < 4; ++col)
+	{
+		lineTest += testBoard.getCharacter(0, col);
+	}
+
+	EXPECT_EQ(lineTest, "-11-");
+
+	EXPECT_TRUE(true);
+
+	lineTest = "";
+
+	for (size_t col = 0; col < 4; ++col)
+	{
+		lineTest += testBoard.getCharacter(1, col);
+	}
+
+	EXPECT_EQ(lineTest, "-21-");
+
+	EXPECT_TRUE(true);
+
+	lineTest = "";
+
+	for (size_t col = 0; col < 4; ++col)
+	{
+		lineTest += testBoard.getCharacter(2, col);
+	}
+
+	EXPECT_EQ(lineTest, "-21-");
+
+	EXPECT_TRUE(true);
+
+	lineTest = "";
+
+	for (size_t col = 0; col < 4; ++col)
+	{
+		lineTest += testBoard.getCharacter(3, col);
+	}
+
+	EXPECT_EQ(lineTest, "-22-");
+
+	EXPECT_TRUE(true);
+
+	lineTest = "";
+}
+TEST(BOARDCONTENT, Screen_Output_Test_Uninitialised)	
+{
+	Board board;
+
+	std::ostringstream test;
+
+	Renderer::drawBoard(test, board);
+
+	EXPECT_EQ(test.str(), "============\n|  A B C D |\n|1 - - - - |\n|2 - - - - |\n|3 - - - - |\n|4 - - - - |\n============\n");
+
+	EXPECT_TRUE(true);
+}
+
+TEST(BOARDCONTENT, Screen_Output_Test_Initialised)
+{
+	Board board;
+
+	board.initializeBoard();
+
+	std::ostringstream test;
+
+	Renderer::drawBoard(test, board);
+
+	EXPECT_EQ(test.str(), "============\n|  A B C D |\n|1 - 1 1 - |\n|2 - 2 1 - |\n|3 - 2 1 - |\n|4 - 2 2 - |\n============\n");
+
 	EXPECT_TRUE(true);
 }

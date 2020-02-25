@@ -33,8 +33,6 @@ void Renderer::drawBoard(std::ostream& output, Board t_board)
 			if ('-' == t_board.getCharacter(row, col))
 				changeTextColor(15);
 
-
-
 			output << t_board.getCharacter(row, col);
 			changeTextColor(15); // reset color before finishing up line
 
@@ -47,8 +45,6 @@ void Renderer::drawBoard(std::ostream& output, Board t_board)
 			{
 				output << " ";
 			}
-
-
 		}	
 	}
 

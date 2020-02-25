@@ -16,6 +16,7 @@ public:
 	void initializeBoard();
 	char setCharacter(int t_row, int t_col, char t_symbol);
 	const char getCharacter(int t_row, int t_col) const;
+	
 };
 
 #endif
