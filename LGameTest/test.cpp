@@ -1,9 +1,11 @@
 #include "pch.h"
 #include "..\LGame\Board.h"
 #include "..\LGame\Renderer.h"
+#include "..\LGame\SimpleAI.h"
 
 #include <iostream>
 #include <sstream>
+#include <array>
 
 
 TEST(TestCaseName, TestName) {
@@ -104,3 +106,53 @@ TEST(BOARDCONTENT, Screen_Output_Test_Initialised)
 	EXPECT_TRUE(true);
 }
 
+TEST(FREESPACE, Free_Space_Test)
+{
+	SimpleAI ai;
+	Board board;
+
+	board.initializeBoard();
+	bool result = ai.checkFree(-1, 0, board);
+
+	EXPECT_EQ(result, false);
+	result = (ai.checkFree(4, 0, board));
+	EXPECT_EQ(result, false);
+	EXPECT_TRUE(ai.checkFree(0, 0, board));
+}
+
+TEST(SETUPAI, Set_Up_New_Positions)
+{
+	SimpleAI ai;
+	Board board;
+	board.initializeBoard();
+	ai.setUpPositions(board);
+	std::array<std::string, 4> arr = { "11","21","31","32" };
+	std::array<std::string, 4> arr2 = {ai.getPositions(0),ai.getPositions(1),ai.getPositions(2),ai.getPositions(3)};
+	EXPECT_EQ(arr2, arr);
+}
+
+
+//bool checkBelow(const Board& t_board, int t_row, int t_col);
+//bool checkColumns(const Board& t_board, int t_row, int t_col);
+//bool checkLeft(const Board& t_board, int t_row, int t_col);
+//bool checkRight(const Board& t_board, int t_row, int t_col);
+
+TEST(FREESPACE, Check_Rows)
+{
+	SimpleAI ai;
+	Board board;
+	board.initializeBoard();
+	bool result = ai.checkRows(board, 0, 0);
+	EXPECT_EQ(result, true);
+}
+
+TEST(FREESPACE, Check_Above)
+{
+	SimpleAI ai;
+	Board board;
+	board.initializeBoard();
+	bool result = ai.checkAbove(board, 0, 0);
+	EXPECT_EQ(result, false);
+	result = ai.checkAbove(board, 4, 0);
+	EXPECT_EQ(result, true);
+}

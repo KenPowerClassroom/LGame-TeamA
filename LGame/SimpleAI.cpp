@@ -1,8 +1,16 @@
 #include "SimpleAI.h"
 
-bool checkFree(int t_row, int t_col, const Board& t_board)
+bool SimpleAI::checkFree(int t_row, int t_col, const Board& t_board)
 {
-	return t_board.getCharacter(t_row, t_col) == '2' || t_board.getCharacter(t_row, t_col) == '-';
+	if (t_row >= 0 && t_row < 4 && t_col >= 0 && t_col < 4)
+	{
+		return t_board.getCharacter(t_row, t_col) == '2' || t_board.getCharacter(t_row, t_col) == '-';
+	}
+	else
+	{
+		return false;
+	}
+	
 }
 
 void SimpleAI::setUpPositions(const Board& t_board)
@@ -18,7 +26,7 @@ void SimpleAI::setUpPositions(const Board& t_board)
 		{
 			if (t_board.getCharacter(i, j) == '2')
 			{
-				oldLocations.at(index) = std::to_string(i + 1) + std::to_string(j + 1);
+				oldLocations.at(index) = std::to_string(i) + std::to_string(j);
 				if (index < 3)
 				{
 					index++;
@@ -46,28 +54,52 @@ bool SimpleAI::checkRows(const Board& t_board, int t_row, int t_col)
 
 bool SimpleAI::checkAbove(const Board& t_board, int t_row, int t_col)
 {
+	int count = 0;
 	if (checkFree(t_row - 1, t_col, t_board) && checkFree(t_row - 2, t_col, t_board))
 	{
+		if (t_board.getCharacter(t_row - 1, t_col) == '2')
+		{
+			count++;
+		}
+		if (t_board.getCharacter(t_row - 2, t_col) == '2')
+		{
+			count++;
+		}
 		if (t_col > 0)
 		{
-			if (checkFree(t_row - 2, t_col - 1, t_board))
+			if (t_board.getCharacter(t_row - 2, t_col - 1) == '2')
 			{
-				m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
-				m_newPositions[1] = std::to_string(t_row - 1) + std::to_string(t_col);
-				m_newPositions[2] = std::to_string(t_row - 2) + std::to_string(t_col);
-				m_newPositions[3] = std::to_string(t_row - 2) + std::to_string(t_col - 1);
-				return true;
+				count++;
+			}
+			if (count < 4)
+			{
+				if (checkFree(t_row - 2, t_col - 1, t_board))
+				{
+					m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
+					m_newPositions[1] = std::to_string(t_row - 1) + std::to_string(t_col);
+					m_newPositions[2] = std::to_string(t_row - 2) + std::to_string(t_col);
+					m_newPositions[3] = std::to_string(t_row - 2) + std::to_string(t_col - 1);
+					return true;
+				}
 			}
 		}
 		else
 		{
+			if (t_board.getCharacter(t_row - 2, t_col + 1) == '2')
+			{
+				count++;
+			}
 			if (checkFree(t_row - 2, t_col + 1, t_board))
 			{
-				m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
-				m_newPositions[1] = std::to_string(t_row - 1) + std::to_string(t_col);
-				m_newPositions[2] = std::to_string(t_row - 2) + std::to_string(t_col);
-				m_newPositions[3] = std::to_string(t_row - 2) + std::to_string(t_col + 1);
-				return true;
+				if (count < 4)
+				{
+					m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
+					m_newPositions[1] = std::to_string(t_row - 1) + std::to_string(t_col);
+					m_newPositions[2] = std::to_string(t_row - 2) + std::to_string(t_col);
+					m_newPositions[3] = std::to_string(t_row - 2) + std::to_string(t_col + 1);
+					return true;
+				}
+
 			}
 		}
 	}
@@ -76,28 +108,51 @@ bool SimpleAI::checkAbove(const Board& t_board, int t_row, int t_col)
 
 bool SimpleAI::checkBelow(const Board& t_board, int t_row, int t_col)
 {
+	int count = 0;
 	if (checkFree(t_row + 1, t_col, t_board) && checkFree(t_row + 2, t_col, t_board))
 	{
+		if (t_board.getCharacter(t_row + 1, t_col) == '2')
+		{
+			count++;
+		}
+		if (t_board.getCharacter(t_row + 2, t_col) == '2')
+		{
+			count++;
+		}
 		if (t_col > 0)
 		{
 			if (checkFree(t_row + 2, t_col - 1, t_board))
 			{
-				m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
-				m_newPositions[1] = std::to_string(t_row + 1) + std::to_string(t_col);
-				m_newPositions[2] = std::to_string(t_row + 2) + std::to_string(t_col);
-				m_newPositions[3] = std::to_string(t_row + 2) + std::to_string(t_col - 1);
-				return true;
+				if (t_board.getCharacter(t_row + 2, t_col - 1) == '2')
+				{
+					count++;
+				}
+				if (count < 4)
+				{
+					m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
+					m_newPositions[1] = std::to_string(t_row + 1) + std::to_string(t_col);
+					m_newPositions[2] = std::to_string(t_row + 2) + std::to_string(t_col);
+					m_newPositions[3] = std::to_string(t_row + 2) + std::to_string(t_col - 1);
+					return true;
+				}
 			}
 		}
 		else
 		{
 			if (checkFree(t_row + 2, t_col + 1, t_board))
 			{
-				m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
-				m_newPositions[1] = std::to_string(t_row + 1) + std::to_string(t_col);
-				m_newPositions[2] = std::to_string(t_row + 2) + std::to_string(t_col);
-				m_newPositions[3] = std::to_string(t_row + 2) + std::to_string(t_col + 1);
-				return true;
+				if (t_board.getCharacter(t_row + 2, t_col + 1) == '2')
+				{
+					count++;
+				}
+				if (count < 4)
+				{
+					m_newPositions[0] = std::to_string(t_row) + std::to_string(t_col);
+					m_newPositions[1] = std::to_string(t_row + 1) + std::to_string(t_col);
+					m_newPositions[2] = std::to_string(t_row + 2) + std::to_string(t_col);
+					m_newPositions[3] = std::to_string(t_row + 2) + std::to_string(t_col + 1);
+					return true;
+				}
 			}
 		}
 	}
@@ -119,30 +174,53 @@ bool SimpleAI::checkColumns(const Board& t_board, int t_row, int t_col)
 
 bool SimpleAI::checkLeft(const Board& t_board, int t_row, int t_col)
 {
+	int count = 0;
 	if (checkFree(t_row, t_col - 1, t_board) && checkFree(t_row, t_col - 2, t_board))
 	{
+		if (t_board.getCharacter(t_row, t_col - 1) == '2')
+		{
+			count++;
+		}
+		if (t_board.getCharacter(t_row, t_col - 2) == '2')
+		{
+			count++;
+		}
 		if (t_row > 0)
 		{
-			if (checkFree(t_row, t_col - 1, t_board))
+			if (checkFree(t_row - 1, t_col - 2, t_board))
 			{
-				m_newPositions[0] = std::to_string(t_row) +
-					std::to_string(t_col);
-				m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col - 1);
-				m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col - 2);
-				m_newPositions[3] = std::to_string(t_row - 1) + std::to_string(t_col - 2);
-				return true;
+				if (t_board.getCharacter(t_row - 1, t_col - 2) == '2')
+				{
+					count++;
+				}
+				if (count < 4)
+				{
+					m_newPositions[0] = std::to_string(t_row) +
+						std::to_string(t_col);
+					m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col - 1);
+					m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col - 2);
+					m_newPositions[3] = std::to_string(t_row - 1) + std::to_string(t_col - 2);
+					return true;
+				}
 			}
 		}
 		else
 		{
 			if (checkFree(t_row + 1, t_col - 2, t_board))
 			{
-				m_newPositions[0] = std::to_string(t_row) +
-					std::to_string(t_col);
-				m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col - 1);
-				m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col - 2);
-				m_newPositions[3] = std::to_string(t_row + 1) + std::to_string(t_col - 2);
-				return true;
+				if (t_board.getCharacter(t_row + 1, t_col - 2) == '2')
+				{
+					count++;
+				}
+				if (count < 4)
+				{
+					m_newPositions[0] = std::to_string(t_row) +
+						std::to_string(t_col);
+					m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col - 1);
+					m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col - 2);
+					m_newPositions[3] = std::to_string(t_row + 1) + std::to_string(t_col - 2);
+					return true;
+				}
 			}
 		}
 	}
@@ -151,30 +229,53 @@ bool SimpleAI::checkLeft(const Board& t_board, int t_row, int t_col)
 
 bool SimpleAI::checkRight(const Board& t_board, int t_row, int t_col)
 {
+	int count = 0;
 	if (checkFree(t_row, t_col + 1, t_board) && checkFree(t_row, t_col + 2, t_board))
 	{
+		if (t_board.getCharacter(t_row, t_col + 1) == '2')
+		{
+			count++;
+		}
+		if (t_board.getCharacter(t_row, t_col + 2) == '2')
+		{
+			count++;
+		}
 		if (t_row > 0)
 		{
 			if (checkFree(t_row - 1, t_col + 2, t_board))
 			{
-				m_newPositions[0] = std::to_string(t_row) +
-					std::to_string(t_col);
-				m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col + 1);
-				m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col + 2);
-				m_newPositions[3] = std::to_string(t_row - 1) + std::to_string(t_col + 2);
-				return true;
+				if (t_board.getCharacter(t_row - 1, t_col + 2) == '2')
+				{
+					count++;
+				}
+				if (count < 4)
+				{
+					m_newPositions[0] = std::to_string(t_row) +
+						std::to_string(t_col);
+					m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col + 1);
+					m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col + 2);
+					m_newPositions[3] = std::to_string(t_row - 1) + std::to_string(t_col + 2);
+					return true;
+				}
 			}
 		}
 		else
 		{
 			if (checkFree(t_row + 1, t_col + 2, t_board))
 			{
-				m_newPositions[0] = std::to_string(t_row) +
-					std::to_string(t_col);
-				m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col + 1);
-				m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col + 2);
-				m_newPositions[3] = std::to_string(t_row + 1) + std::to_string(t_col + 2);
-				return true;
+				if (t_board.getCharacter(t_row + 1, t_col + 2) == '2')
+				{
+					count++;
+				}
+				if (count < 4)
+				{
+					m_newPositions[0] = std::to_string(t_row) +
+						std::to_string(t_col);
+					m_newPositions[1] = std::to_string(t_row) + std::to_string(t_col + 1);
+					m_newPositions[2] = std::to_string(t_row) + std::to_string(t_col + 2);
+					m_newPositions[3] = std::to_string(t_row + 1) + std::to_string(t_col + 2);
+					return true;
+				}
 			}
 		}
 	}
@@ -204,4 +305,5 @@ std::array<std::string, 4> SimpleAI::movePiece(const Board & t_board)
 		}
 		return m_newPositions;
 	}
+	return m_newPositions;
 }
