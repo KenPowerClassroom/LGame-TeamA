@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Renderer.h"
 #include "Board.h"
+#include <vector>
 
 class Game
 {
@@ -17,12 +18,13 @@ class Game
 
 
 
+
 public:
 	void run();
 	void update();
 	void pieceClear();
 	void movePiece();
-
+	bool checkVaildMove(int row, char col);
 };
 
 #endif
