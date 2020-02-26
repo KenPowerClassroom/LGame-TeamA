@@ -5,6 +5,7 @@
 #include "Renderer.h"
 #include "Board.h"
 #include "SimpleAI.h"
+#include "WinCondition.h"
 
 class Game
 {
