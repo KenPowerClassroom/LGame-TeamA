@@ -152,16 +152,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="CheckPositions.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimpleAI.cpp" />
+    <ClCompile Include="WinCondition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="CheckPositions.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SimpleAI.h" />
+    <ClInclude Include="WinCondition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
