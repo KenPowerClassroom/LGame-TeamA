@@ -36,7 +36,7 @@ void Game::update()
 			//std::array<std::string, 4> location = m_ai.movePiece(m_board);
 			//m_board.moveLPiece(location, '2');
 
-			movePiece();
+			movePiece(); // <- this
 
 			switchTurn();
 		}
@@ -63,12 +63,13 @@ void Game::update()
 
 void Game::movePiece()
 {
-	int error{ 0 };
+	int error{ 0 }; // checks if the 
 
-	pieceClear();
+	pieceClear(); // clears the player's piece
 
-	std::vector<int> row1;
-	std::vector<int> col1;
+	//checks for validation
+	std::vector<int> rowData; // stores player's row input 
+	std::vector<int> colData; // stoees player's col input
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -94,20 +95,33 @@ void Game::movePiece()
 				invalidMovement = true;
 			}
 
+			//check if the player's input is capital
 			if ((col < 'A' || col > 'E'))
 			{
 				invalidMovement = true;
 			}
 
+			// checks if other data is in place of 
 			char test = m_board.getCharacter(row - 1, col - 65);
 			if ((test == '(') || (test == ')') || (test == '2') || test == '1')
 			{
 				std::cout << "Invalid move piece is already there\n";
 				invalidMovement = true;
 			}
-			//check for L Piece good shape 
-			row1.push_back(row - 1);
-			col1.push_back((int)col - 65);
+
+			// reverts back the data if its invalid
+			if (invalidMovement)
+			{
+				rowData.pop_back();
+				colData.pop_back();
+			}
+			else
+			{
+				//check for L Piece good shape 
+				rowData.push_back(row - 1);
+				colData.push_back((int)col - 65);
+			}
+
 		}
 
 		//checks if the previous l-piece placement is not the same
@@ -115,7 +129,7 @@ void Game::movePiece()
 		{
 			if (col == pCol[i])
 			{
-				error++;
+				error++; // increment
 			}
 		}
 
@@ -123,22 +137,17 @@ void Game::movePiece()
 		if (error > 3)
 		{
 			gameOn = false;
-			errorPlacement = false;
+			errorPlacement = false; // displays a error placement
 		}
 		else
 		{
-			errorPlacement = true;
+			errorPlacement = true; // does not display
 		}
-
-
-
-
-
-		gameOn = checkVaildMove(row1, col1);
-
-		m_board.setCharacter(row - 1, (int)col - 65, '1');
-		Renderer::drawBoard(std::cout, m_board);
+		m_board.setCharacter(row - 1, (int)col - 65, '1'); // set data to the grid
+		Renderer::drawBoard(std::cout, m_board); // draw input
 		std::cout << m_turn << std::endl << std::endl; // display who's turn it is
+
+		gameOn = checkVaildMove(rowData, colData); // checks if the l-piece placement is correct
 	}
 
 
@@ -148,22 +157,22 @@ bool Game::checkVaildMove(std::vector<int> row1, std::vector<int> col1)
 {
 	//check for L Piece good shape 
 
-	int changingInDirection = 0;
-	if (row1.size() == 4)
+	int changingInDirection = 0; // variable for different placement
+	if (row1.size() == 4) // <- if the size is this
 	{
-		for (unsigned int i = 2; i  < row1.size(); i++)
+		for (unsigned int i = 2; i  < row1.size(); i++) // take two input before stareting the function
 		{
-			bool horizontalLine = (row1.at(i - 2) == row1.at(i) && row1.at(i) == row1.at(i - 1));
-			bool verticalLine = (col1.at(i - 2) == col1.at(i) && col1.at(i) == col1.at(i - 1));
+			bool horizontalLine = (row1.at(i - 2) == row1.at(i) && row1.at(i) == row1.at(i - 1)); // checks if the horizontal line is straight on player's row data
+			bool verticalLine = (col1.at(i - 2) == col1.at(i) && col1.at(i) == col1.at(i - 1)); // checks if the horizontal line is straight on player's col data
 			if (!(horizontalLine || verticalLine))
 			{
 				changingInDirection++;
 			}
 		}
-		validLPiece = changingInDirection == 1;
+		validLPiece = changingInDirection == 1; // return
 	}
 
-	return validLPiece;
+	return validLPiece; // return
 }
 
 /// <summary>
