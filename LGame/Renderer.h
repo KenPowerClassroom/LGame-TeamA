@@ -13,6 +13,7 @@ public:
 
 private:
 	static void changeTextColor(int t_color);
+
 };
 
 #endif
