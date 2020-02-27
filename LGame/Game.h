@@ -39,6 +39,8 @@ public:
 	void movePiece();
 	bool checkVaildMove(std::vector<int> row1, std::vector<int> col1);
 	void switchTurn();
+	void moveNeutralPiece();
+	void clearNeutralPiece(char t_neutralPiece);
 	TurnOrder getTurnOrder() { return m_currentTurn; }
 };
 

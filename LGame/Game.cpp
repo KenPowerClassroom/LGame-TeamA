@@ -37,7 +37,7 @@ void Game::update()
 			//m_board.moveLPiece(location, '2');
 
 			movePiece(); // <- this
-
+			moveNeutralPiece();
 			switchTurn();
 		}
 
@@ -112,8 +112,8 @@ void Game::movePiece()
 			// reverts back the data if its invalid
 			if (invalidMovement)
 			{
-				rowData.pop_back();
-				colData.pop_back();
+				//rowData.pop_back();
+				//colData.pop_back();
 			}
 			else
 			{
@@ -190,6 +190,101 @@ void Game::switchTurn()
 	{
 		m_currentTurn = TurnOrder::PLAYER_TURN;
 		m_turn = "Player's Turn";
+	}
+}
+
+
+/// <summary>
+/// allows the player to choose if they want to move a neutral piece, choose which one and
+/// move the piece where the player inputs
+/// </summary>
+void Game::moveNeutralPiece()
+{
+	int row{ -1 };
+	char col{ -1 };
+	char neutralPiece{ '-' };
+	bool repeat{ true };
+
+
+	std::string choice{ "" };
+
+	std::cout << "Move a neutral piece? 1 - Yes: ";
+	std::cin >> choice;
+
+	if (choice == "1")
+	{
+		while (repeat)
+		{
+			std::cout << "\nChoose piece: '(' or ')': ";
+			std::cin >> neutralPiece;
+
+			std::cout << "\nRow: ";
+			std::cin >> row;
+
+			std::cout << "Col: ";
+			std::cin >> col;
+
+			repeat = false;
+
+			//checks if neutral piece is in the boundary regarding the row
+			if (row < 1 || row > 4)
+			{
+				repeat = true;
+				std::cout << "\ninvalid entry!" << std::endl;
+			}
+
+			//checks if neutral piece is in the boundary regarding the col and that the col input is capital
+			if ((col < 'A') || (col > 'D'))
+			{
+				repeat = true;
+				std::cout << "\ninvalid entry!" << std::endl;
+			}
+
+			// checks if neutral piece choice input is valid
+			if ((neutralPiece != '(') && (neutralPiece != ')'))
+			{
+				repeat = true;
+				std::cout << "\ninvalid entry!" << std::endl;
+			}
+
+			char testNeutralPiece = m_board.getCharacter(row - 1, (int)col - 65); // piece for testing only
+
+
+			// checks if the new position of the neutral piece intersects with an L-Piece
+			if ((testNeutralPiece == '1') || (testNeutralPiece == '2')
+				|| (testNeutralPiece == '(') || (testNeutralPiece == ')'))
+			{
+				repeat = true;
+				std::cout << "\ninvalid entry!" << std::endl;
+			}
+		}
+
+		clearNeutralPiece(neutralPiece);
+		m_board.setCharacter(row - 1, (int)col - 65, neutralPiece);
+		Renderer::drawBoard(std::cout, m_board);
+	}
+
+
+}
+
+
+/// <summary>
+/// clears the previous neutral piece
+/// </summary>
+/// <param name="t_neutralPiece">char representing the chosen neutral piece</param>
+void Game::clearNeutralPiece(char t_neutralPiece)
+{
+	for (int row = 0; row < 4; ++row)
+	{
+		for (int col = 0; col < 4; ++col)
+		{
+			if (t_neutralPiece == m_board.getCharacter(row, col))
+			{
+				m_board.setCharacter(row, col, '-');
+				Renderer::drawBoard(std::cout, m_board);
+				break;
+			}
+		}
 	}
 }
 
