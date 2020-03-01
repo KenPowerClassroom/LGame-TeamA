@@ -30,21 +30,32 @@ void Game::update()
 		// allow player to move L-Piece and a neutral piece
 		if (m_currentTurn == TurnOrder::PLAYER_TURN)
 		{
-			/// <summary>
-			/// had to temporarily comment this out, otherwise the program wouldn't run
-			/// </summary>
-			//std::array<std::string, 4> location = m_ai.movePiece(m_board);
-			//m_board.moveLPiece(location, '2');
 
-			movePiece(); // <- this
+			if (!WinCondition::hasLost(m_board, '1'))
+			{
+				movePiece(); // <- this
 
-			switchTurn();
+				switchTurn();
+			}
+			else
+			{
+				quit = true;
+			}
 		}
 
 		// A.I does it's move with the L-Piece
 		else if (m_currentTurn == TurnOrder::AI_TURN)
 		{
-			switchTurn();
+			if (!WinCondition::hasLost(m_board, '1'))
+			{
+				std::array<std::string, 4> location = m_ai.movePiece(m_board);
+				m_board.moveLPiece(location, '2');
+				switchTurn();
+			}
+			else
+			{
+				quit = true;
+			}
 		}
 	}
 	else

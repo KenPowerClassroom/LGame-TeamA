@@ -2,6 +2,10 @@
 #include "..\LGame\Board.h"
 #include "..\LGame\Renderer.h"
 #include "..\\LGame\Game.h"
+#include "..\LGame\CheckPositions.h"
+#include "..\LGame\WinCondition.h"
+#include "..\LGame\SimpleAI.h"
+#include <array>
 #include <iostream>
 #include <sstream>
 
@@ -121,4 +125,97 @@ TEST(TURNORDER, Turn_Order_Test_AIs_Turn)
 	ASSERT_EQ(TurnOrder::AI_TURN, testGame.getTurnOrder());
 
 	EXPECT_TRUE(true);
+}
+
+TEST(FREESPACE, Free_Space_Test)
+{
+	Board board;
+
+	board.initializeBoard();
+	bool result = CheckPositions::checkFree(-1, 0, board, '2');
+
+
+	EXPECT_EQ(result, false);
+	result = (CheckPositions::checkFree(4, 0, board, '2'));
+	EXPECT_EQ(result, false);
+	EXPECT_TRUE(CheckPositions::checkFree(0, 0, board, '2'));
+	EXPECT_TRUE(CheckPositions::checkFree(1, 1, board, '2'));
+	EXPECT_TRUE(CheckPositions::checkFree(2, 1, board, '2'));
+	EXPECT_TRUE(CheckPositions::checkFree(3, 1, board, '2'));
+	EXPECT_TRUE(CheckPositions::checkFree(3, 2, board, '2'));
+	EXPECT_FALSE(CheckPositions::checkFree(0, 1, board, '2'));
+	EXPECT_FALSE(CheckPositions::checkFree(0, 2, board, '2'));
+	EXPECT_FALSE(CheckPositions::checkFree(1, 2, board, '2'));
+	EXPECT_FALSE(CheckPositions::checkFree(2, 2, board, '2'));
+
+
+	EXPECT_FALSE(CheckPositions::checkFree(1, 1, board, '1'));
+	EXPECT_FALSE(CheckPositions::checkFree(2, 1, board, '1'));
+	EXPECT_FALSE(CheckPositions::checkFree(3, 1, board, '1'));
+	EXPECT_FALSE(CheckPositions::checkFree(3, 2, board, '1'));
+	EXPECT_TRUE(CheckPositions::checkFree(0, 1, board, '1'));
+	EXPECT_TRUE(CheckPositions::checkFree(0, 2, board, '1'));
+	EXPECT_TRUE(CheckPositions::checkFree(1, 2, board, '1'));
+	EXPECT_TRUE(CheckPositions::checkFree(2, 2, board, '1'));
+}
+
+TEST(SETUPAI, Set_Up_New_Positions)
+{
+	SimpleAI ai;
+	Board board;
+	board.initializeBoard();
+	ai.setUpPositions(board);
+	std::array<std::string, 4> arr = { "11","21","31","32" };
+	std::array<std::string, 4> arr2 = { ai.getPositions(0),ai.getPositions(1),ai.getPositions(2),ai.getPositions(3) };
+	EXPECT_EQ(arr2, arr);
+}
+
+TEST(MOVEAI, Move_Ai_Piece)
+{
+	SimpleAI ai;
+	Board board;
+	board.initializeBoard();
+	std::array<std::string, 4> arr2 = ai.movePiece(board);
+	std::array<std::string, 4> arr = { "11","21","31","32" };
+	EXPECT_NE(arr, arr2);
+}
+
+TEST(FREESPACE, Check_Rows)
+{
+	SimpleAI ai;
+	Board board;
+	std::vector<std::array<std::string, 4>>  validLocations;
+	board.initializeBoard();
+	bool result = CheckPositions::checkRows(board, 0, 0, validLocations, '2');
+
+	EXPECT_EQ(validLocations.empty(), false);
+}
+
+TEST(FREESPACE, Check_Cols)
+{
+	SimpleAI ai;
+	Board board;
+	std::vector<std::array<std::string, 4>>  validLocations;
+	board.initializeBoard();
+	bool result = CheckPositions::checkColumns(board, 0, 0, validLocations, '2');
+
+	EXPECT_EQ(validLocations.empty(), true);
+
+	result = CheckPositions::checkColumns(board, 1, 3, validLocations, '2');
+	EXPECT_EQ(validLocations.empty(), false);
+}
+
+TEST(WINCONDITION, Win_Condition_On_Setup)
+{
+	WinCondition winCondition;
+	SimpleAI ai;
+	Board board;
+	std::vector<std::array<std::string, 4>>  validLocations;
+	board.initializeBoard();
+
+	bool result = winCondition.hasLost(board, '2');
+	EXPECT_EQ(result, false);
+
+	result = winCondition.hasLost(board, '1');
+	EXPECT_EQ(result, false);
 }

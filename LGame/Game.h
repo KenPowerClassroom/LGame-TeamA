@@ -6,6 +6,7 @@
 #include "Board.h"
 #include <vector>
 #include "SimpleAI.h"
+#include "WinCondition.h"
 
 /// /// <summary>
 /// enum class used for checking who's turn it is
