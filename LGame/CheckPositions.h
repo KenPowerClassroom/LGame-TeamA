@@ -1,6 +1,7 @@
 #pragma once
 #include "Board.h"
 #include <vector>
+#include <string>
 class CheckPositions
 {
 public:
