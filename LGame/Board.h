@@ -19,7 +19,7 @@ public:
 	void initializeBoard();
 	const char getCharacter(int t_row, int t_col) const;
 	
-	void moveLPiece(std::array<std::string, 4> t_location, char t_piece);
+	void moveLPiece(std::array<std::string, 4> t_location, char t_piece);//moves the ai piece to where it should be
 };
 
 #endif

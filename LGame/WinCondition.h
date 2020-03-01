@@ -8,6 +8,6 @@
 class WinCondition
 {
 public:
-	static bool hasLost(const Board & t_board, char t_piece);
+	static bool hasLost(const Board & t_board, char t_piece);//checks to see if that piece has won or lost
 };
 

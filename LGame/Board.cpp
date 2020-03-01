@@ -18,6 +18,14 @@ const char Board::getCharacter(int t_row, int t_col) const
 	return m_board[t_row][t_col];
 }
 
+/// <summary>
+/// finds where the l piece currently is and removes all of these pieces from the board
+/// it then puts the l piece at the positions from the array
+/// has to minus the ascii value of zero from the characters to get the int form to place them
+/// at the correct position
+/// </summary>
+/// <param name="t_location"></param>
+/// <param name="t_piece"></param>
 void Board::moveLPiece(std::array<std::string, 4> t_location, char t_piece)
 {
 	for (int row = 0; row < c_NUM_SPACES; row++)
