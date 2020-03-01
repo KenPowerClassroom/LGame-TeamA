@@ -67,7 +67,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>../LGame/debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Board.obj;Renderer.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>CheckPositions.obj;WinCondition.obj;SimpleAI.obj;Board.obj;Renderer.obj;Game.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -99,6 +99,7 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <AdditionalDependencies>CheckPositions.obj;WinCondition.obj;SimpleAI.obj;Board.obj;Renderer.obj;Game.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
