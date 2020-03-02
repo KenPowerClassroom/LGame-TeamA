@@ -5,6 +5,7 @@
 #include "..\\LGame\\CheckPositions.h"
 #include "..\\LGame\\WinCondition.h"
 #include "..\\LGame\\SimpleAI.h"
+#include "gtest/gtest.h"
 #include <array>
 #include <iostream>
 #include <sstream>
@@ -40,7 +41,7 @@ TEST(BOARDCONTENT, Board_Contents_Initialize_Pieces)
 		lineTest += testBoard.getCharacter(0, col);
 	}
 
-	EXPECT_EQ(lineTest, "-11-");
+	EXPECT_EQ(lineTest, "(11-");
 
 	EXPECT_TRUE(true);
 
@@ -73,7 +74,7 @@ TEST(BOARDCONTENT, Board_Contents_Initialize_Pieces)
 		lineTest += testBoard.getCharacter(3, col);
 	}
 
-	EXPECT_EQ(lineTest, "-22-");
+	EXPECT_EQ(lineTest, "-22)");
 
 	EXPECT_TRUE(true);
 
@@ -102,7 +103,7 @@ TEST(BOARDCONTENT, Screen_Output_Test_Initialised)
 
 	Renderer::drawBoard(test, board);
 
-	EXPECT_EQ(test.str(), "============\n|  A B C D |\n|1 - 1 1 - |\n|2 - 2 1 - |\n|3 - 2 1 - |\n|4 - 2 2 - |\n============\n");
+	EXPECT_EQ(test.str(), "============\n|  A B C D |\n|1 ( 1 1 - |\n|2 - 2 1 - |\n|3 - 2 1 - |\n|4 - 2 2 ) |\n============\n");
 
 	EXPECT_TRUE(true);
 }
@@ -138,7 +139,7 @@ TEST(FREESPACE, Free_Space_Test)
 	EXPECT_EQ(result, false);
 	result = (CheckPositions::checkFree(4, 0, board, '2'));
 	EXPECT_EQ(result, false);
-	EXPECT_TRUE(CheckPositions::checkFree(0, 0, board, '2'));
+	
 	EXPECT_TRUE(CheckPositions::checkFree(1, 1, board, '2'));
 	EXPECT_TRUE(CheckPositions::checkFree(2, 1, board, '2'));
 	EXPECT_TRUE(CheckPositions::checkFree(3, 1, board, '2'));
@@ -201,8 +202,8 @@ TEST(FREESPACE, Check_Cols)
 
 	EXPECT_EQ(validLocations.empty(), true);
 
-	result = CheckPositions::checkColumns(board, 1, 3, validLocations, '2');
-	EXPECT_EQ(validLocations.empty(), false);
+	//result = CheckPositions::checkColumns(board, 1, 3, validLocations, '2');
+	//EXPECT_EQ(validLocations.empty(), false);
 }
 
 TEST(WINCONDITION, Win_Condition_On_Setup)
