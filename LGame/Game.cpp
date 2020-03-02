@@ -140,7 +140,6 @@ void Game::movePiece()
 
 
 			// reverts back the data if its invalid
-<<<<<<< HEAD
 			if (invalidMovement)
 			{
 				//rowData.pop_back();
@@ -149,17 +148,15 @@ void Game::movePiece()
 			else
 			{
 				//check for L Piece good shape 
-				rowData.push_back(row - 1);
-				colData.push_back((int)col - 65);
+				//rowData.push_back(row - 1);
+				//colData.push_back((int)col - 65);
 			}
-=======
 		
 			
 			//check for L Piece good shape 
 			rowData.push_back(row - 1);
 			colData.push_back((int)col - 65);
 			
->>>>>>> MoveL-Piece
 
 		}
 

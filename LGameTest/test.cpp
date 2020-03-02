@@ -1,10 +1,10 @@
 #include "pch.h"
-#include "..\LGame\Board.h"
-#include "..\LGame\Renderer.h"
-#include "..\\LGame\Game.h"
-#include "..\LGame\CheckPositions.h"
-#include "..\LGame\WinCondition.h"
-#include "..\LGame\SimpleAI.h"
+#include "..\\LGame\\Board.h"
+#include "..\\LGame\\Renderer.h"
+#include "..\\LGame\\Game.h"
+#include "..\\LGame\\CheckPositions.h"
+#include "..\\LGame\\WinCondition.h"
+#include "..\\LGame\\SimpleAI.h"
 #include <array>
 #include <iostream>
 #include <sstream>
