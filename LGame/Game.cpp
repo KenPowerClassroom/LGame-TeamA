@@ -97,8 +97,21 @@ void Game::movePiece()
 			std::cout << "Row: ";
 			std::cin >> row;
 
+			/// <summary>
+			///this is a test
+			/// </summary>
+			//if (!std::cin.fail())
+			//{
+			//	std::cin.clear();
+			//	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+			//}
+
 			std::cout << "Col: ";
 			std::cin >> col;
+
+
+
 
 			//Check for validation
 			invalidMovement = false;
@@ -110,10 +123,11 @@ void Game::movePiece()
 			}
 
 			//check if the player's input is capital
-			if ((col < 'A' || col > 'E'))
+			if (col < 'A' || col > 'E')
 			{
 				invalidMovement = true;
 			}
+
 
 			// checks if other data is in place of 
 			char test = m_board.getCharacter(row - 1, col - 65);
@@ -123,7 +137,10 @@ void Game::movePiece()
 				invalidMovement = true;
 			}
 
+
+
 			// reverts back the data if its invalid
+<<<<<<< HEAD
 			if (invalidMovement)
 			{
 				//rowData.pop_back();
@@ -135,6 +152,14 @@ void Game::movePiece()
 				rowData.push_back(row - 1);
 				colData.push_back((int)col - 65);
 			}
+=======
+		
+			
+			//check for L Piece good shape 
+			rowData.push_back(row - 1);
+			colData.push_back((int)col - 65);
+			
+>>>>>>> MoveL-Piece
 
 		}
 
@@ -157,6 +182,13 @@ void Game::movePiece()
 		{
 			errorPlacement = true; // does not display
 		}
+
+		//if (col > 'a' && col < 'e')
+		//{
+		//	col -= 32;
+		//}
+
+
 		m_board.setCharacter(row - 1, (int)col - 65, '1'); // set data to the grid
 		Renderer::drawBoard(std::cout, m_board); // draw input
 		std::cout << m_turn << std::endl << std::endl; // display who's turn it is
